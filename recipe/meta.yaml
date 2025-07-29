@@ -16,6 +16,8 @@ build:
     - pdoc = pdoc.cli:main
     - pdoc3 = pdoc.cli:main
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
+  script_env:
+    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
 
 requirements:
   host:
