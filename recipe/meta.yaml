@@ -9,7 +9,7 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 1ea5e84b87a754d191fb64bf5e517ca6c50d0d84a614c1efecf6b46d290ae387
   patches:
-    - setupy_version.patch
+    - fix_setupy.patch
 
 build:
   number: 0
