@@ -16,7 +16,8 @@ build:
     - pdoc = pdoc.cli:main
     - pdoc3 = pdoc.cli:main
   script:
-    - export SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+    - echo "[metadata]" > setup.cfg
+    - echo "version = {{ version }}" >> setup.cfg
     - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
@@ -26,7 +27,7 @@ requirements:
     - mako
     - markdown >=3.0
     - pip
-    - python >=3.5
+    - python
     - setuptools_scm
     - setuptools-git
   run:
