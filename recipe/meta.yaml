@@ -1,5 +1,5 @@
 {% set name = "pdoc3" %}
-{% set version = "0.9.2" %}
+{% set version = "0.11.6" %}
 
 package:
   name: {{ name|lower }}
@@ -7,15 +7,15 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 9df5d931f25f353c69c46819a3bd03ef96dd286f2a70bb1b93a23a781f91faa1
+  sha256: 1ea5e84b87a754d191fb64bf5e517ca6c50d0d84a614c1efecf6b46d290ae387
 
 build:
   number: 0
-  noarch: python
+  skip: true  # [py<39]
   entry_points:
     - pdoc = pdoc.cli:main
     - pdoc3 = pdoc.cli:main
-  script: '{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv '
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
   host:
@@ -28,27 +28,34 @@ requirements:
   run:
     - mako
     - markdown >=3.0
-    - python >=3.5
+    - python
 
 test:
   imports:
     - pdoc
     - pdoc.cli
     - pdoc.html_helpers
-
+  source_files:
+    - pdoc/test
+    - pdoc/test/__init__.py
   commands:
-    - pdoc --help
-    - pdoc3 --help
-    # commenting at rev 0.7.2 because of an irrelevant git test failing.
-    #     https://github.com/conda-forge/staged-recipes/pull/10220#issuecomment-557137812
-    # - python -m pdoc.test.__init__
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - PYTHONPATH=$SRC_DIR python -m unittest discover -s pdoc.test
 
 about:
-  home: https://pdoc3.github.io/pdoc/
-  license: GNU Affero General Public v3 or later (AGPLv3+)
+  home: https://pdoc3.github.io/pdoc
+  license: GNU Affero General Public License v3 or later (AGPLv3+) (AGPL-3.0)
   license_family: AGPL
-  license_file: LICENSE.txt
   summary: Auto-generate API documentation for Python projects.
+  description: |
+    pdoc3 is a lightweight and fast documentation generator for Python modules.
+    It produces clean, customizable HTML documentation directly from the source code
+    and its docstrings, supporting both public and private APIs. pdoc3 is ideal
+    for projects that value simplicity and want to keep documentation closely tied
+    to the codebase.
+  dev_url: https://github.com/pdoc3/pdoc
+  doc_url: https://pdoc3.github.io/pdoc/doc/pdoc
 
 extra:
   recipe-maintainers:
