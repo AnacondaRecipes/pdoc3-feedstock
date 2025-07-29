@@ -37,9 +37,7 @@ test:
     - pdoc.html_helpers
   source_files:
     - pdoc/test
-    # - pdoc/test/__init__.py
   commands:
-    # - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - PYTHONPATH=$SRC_DIR python -m unittest discover -s pdoc.test  # [not win]
     - set PYTHONPATH=%SRC_DIR% && python -m unittest discover -s pdoc.test -v  # [win]
