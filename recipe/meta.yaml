@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 1ea5e84b87a754d191fb64bf5e517ca6c50d0d84a614c1efecf6b46d290ae387
+  patches:
+    - setupy_version.patch
 
 build:
   number: 0
@@ -15,12 +17,7 @@ build:
   entry_points:
     - pdoc = pdoc.cli:main
     - pdoc3 = pdoc.cli:main
-  script:
-    - echo "[metadata]" > setup.cfg
-    - echo "version = {{ version }}" >> setup.cfg
-    - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
-  script_env:
-    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
   host:
