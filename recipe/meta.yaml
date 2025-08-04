@@ -19,10 +19,9 @@ build:
 
 requirements:
   host:
-    - mako
-    - markdown >=3.0
     - pip
     - python
+    - wheel
     - setuptools_scm
     - setuptools-git
   run:
@@ -35,8 +34,8 @@ test:
     - pdoc
     - pdoc.cli
     - pdoc.html_helpers
-  source_files:
-    - pdoc/test
+  # source_files:
+  #   - pdoc/test
   commands:
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     - PYTHONPATH=$SRC_DIR python -m unittest discover -s pdoc.test  # [not win]
@@ -44,17 +43,17 @@ test:
 
 about:
   home: https://pdoc3.github.io/pdoc
-  license: GNU Affero General Public License v3 or later (AGPLv3+) (AGPL-3.0)
-  license_family: AGPL
-  summary: Auto-generate API documentation for Python projects.
-  description: |
-    pdoc3 is a lightweight and fast documentation generator for Python modules.
-    It produces clean, customizable HTML documentation directly from the source code
-    and its docstrings, supporting both public and private APIs. pdoc3 is ideal
-    for projects that value simplicity and want to keep documentation closely tied
-    to the codebase.
   dev_url: https://github.com/pdoc3/pdoc
   doc_url: https://pdoc3.github.io/pdoc/doc/pdoc
+  license: AGPL-3.0-only
+  license_family: AGPL
+  license_file: LICENSE.txt
+  summary: Auto-generate API documentation for Python projects.
+  description: |
+    Python package pdoc provides types, functions, and a command-line interface 
+    for accessing public documentation of Python modules, and for presenting it 
+    in a user-friendly, industry-standard open format. It is best suited for 
+    small- to medium-sized projects with tidy, hierarchical APIs.
 
 extra:
   recipe-maintainers:
